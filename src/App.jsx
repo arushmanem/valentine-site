@@ -318,7 +318,7 @@ const ValentineSite = () => {
             >
               <div className="w-72 h-96 bg-gray-200 overflow-hidden relative">
                 <img
-                  src="/your-photo.jpg"
+                  src="/MonishaValentine.png"
                   alt="Us"
                   className="w-full h-full object-cover"
                   onError={(e) => { e.target.src = "https://via.placeholder.com/300x400?text=Your+Happy+Photo"; }}
