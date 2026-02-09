@@ -1,0 +1,306 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================
+   1. GLOBAL & CURSORS
+   ========================================= */
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #D2042D;
+}
+
+.sushi-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='24'>🍣</text></svg>"), auto;
+}
+
+.heart-cursor {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size: 24px;'><text y='24'>❤️</text></svg>"), pointer;
+}
+
+/* =========================================
+   2. GLOBAL ANIMATIONS
+   ========================================= */
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.1); }
+  40% { transform: scale(1); }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.animate-heartbeat {
+  animation: heartbeat 1.2s infinite ease-in-out;
+}
+
+.sparkle-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/stardust.png");
+  opacity: 0.4;
+}
+
+.floating-emoji {
+  position: absolute;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.25));
+  opacity: 0.85;
+  user-select: none;
+  transform: translateZ(0);
+}
+
+/* =========================================
+   3. SUSHI TITLE (Conveyor & Chopsticks)
+   ========================================= */
+.conveyor-belt {
+  border-radius: 9999px;
+  opacity: 0.35;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.25) 0,
+      rgba(0, 0, 0, 0.25) 16px,
+      rgba(255, 255, 255, 0.15) 16px,
+      rgba(255, 255, 255, 0.15) 32px
+    );
+  animation: beltMove 1.2s linear infinite;
+}
+
+@keyframes beltMove {
+  from { background-position: 0 0; }
+  to { background-position: 64px 0; }
+}
+
+.chopsticks {
+  width: 120px; height: 16px; position: relative;
+}
+
+.chopsticks::before,
+.chopsticks::after {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 120px; height: 6px; border-radius: 9999px;
+  background: linear-gradient(90deg, #b65b3c, #e7b08e, #b65b3c);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  transform-origin: left center;
+}
+
+.chopsticks::after {
+  top: 10px; width: 112px; opacity: 0.95; transform: rotate(-6deg);
+}
+.chopsticks::before {
+  transform: rotate(10deg);
+}
+.chopsticks-right {
+  transform: rotate(180deg);
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50% { transform: rotate(6deg) translateY(-4px); }
+}
+.animate-wiggle {
+  animation: wiggle 2.2s ease-in-out infinite;
+}
+
+/* =========================================
+   4. ELEGANT TITLE (Typography)
+   ========================================= */
+.title-sub {
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 650;
+  letter-spacing: 0.02em;
+}
+
+.elegant-titleWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.elegant-title {
+  margin: 0;
+  font-family: 'Dancing Script', cursive;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.3px;
+  font-size: clamp(46px, 5.6vw, 78px);
+  color: rgba(255, 255, 255, 0.98);
+  text-shadow: 0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.elegant-underline {
+  width: min(520px, 78vw);
+  height: 9px;
+  margin-top: 16px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.0),
+    rgba(255, 182, 193, 0.98),
+    rgba(255, 255, 255, 0.0)
+  );
+  box-shadow: 0 12px 40px rgba(255, 182, 193, 0.22);
+}
+
+/* =========================================
+   5. ENVELOPE ANIMATION SCENE (FIXED)
+   ========================================= */
+
+/* The scene container - centers everything */
+.envelope-scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 1. The Envelope Container - CENTERED */
+.envelope {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  background-color: #FFC0CB;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  top: 50%;
+  left: 50%;
+  /* transform handled by framer-motion */
+  z-index: 1;
+}
+
+/* The Triangles (Pocket) */
+.pocket {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 0 150px 120px 150px;
+  border-color: transparent transparent #FF69B4 transparent;
+  z-index: 10;
+  filter: drop-shadow(0 -2px 5px rgba(0,0,0,0.1));
+}
+.pocket::before {
+  content: ""; position: absolute;
+  top: -80px; left: -150px;
+  width: 0; height: 0;
+  border-style: solid; border-width: 100px 0 100px 150px;
+  border-color: transparent transparent transparent #FFB6C1;
+}
+.pocket::after {
+  content: ""; position: absolute;
+  top: -80px; right: -150px;
+  width: 0; height: 0;
+  border-style: solid; border-width: 100px 150px 100px 0;
+  border-color: transparent #FFB6C1 transparent transparent;
+}
+
+/* The Flap */
+.flap {
+  position: absolute;
+  top: 0; left: 0;
+  width: 0; height: 0;
+  border-style: solid;
+  border-width: 110px 150px 0 150px;
+  border-color: #FF1493 transparent transparent transparent;
+  transform-origin: top;
+  z-index: 20;
+}
+
+/* 2. The Card - CENTERED relative to envelope */
+.letterCard {
+  position: absolute;
+  width: 260px;
+  height: 180px;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  top: 50%;
+  left: 50%;
+  /* transform handled by framer-motion */
+  z-index: 5;
+}
+
+/* 3. The Burst - CENTERED */
+.burst-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  z-index: 25;
+}
+.burstItem {
+  position: absolute;
+  font-size: 24px;
+  top: 0;
+  left: 0;
+}
+
+/* 4. The Message Panel during intro - CENTERED */
+.messagePanel-intro {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* transform handled by framer-motion */
+  width: 520px;
+  max-width: 92vw;
+  padding: 44px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 999;
+}
+
+/* 5. Static panel (after animation completes) */
+.messagePanel {
+  width: 520px;
+  max-width: 92vw;
+  padding: 44px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 22px;
+  box-shadow: 0 30px 70px rgba(0,0,0,0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.static-panel {
+  position: relative;
+}
+
+/* Back Button */
+.back-btn {
+  position: fixed;
+  top: 18px; left: 18px;
+  z-index: 9999;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: rgba(255, 255, 255, 0.95);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+  transition: transform 160ms ease, background 160ms ease;
+}
+.back-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.22);
+}
