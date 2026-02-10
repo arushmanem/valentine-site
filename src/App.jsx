@@ -168,7 +168,7 @@ const ValentineSite = () => {
   const [noButtonPos, setNoButtonPos] = useState({});
   const [introDone, setIntroDone] = useState(false);
 
-  const doorDashURL = "https://www.doordash.com";
+  const doorDashURL = "https://www.doordash.com/gifts/f6ebd53b-c908-4f5e-af64-6d455a451c2e?ddtm=eyJzb3VyY2UiOiJNQU5VQUwiLCJ0YXJnZXQiOiJyZWNpcGllbnQifQ%3D%3D";
 
   useEffect(() => {
     const timer = setTimeout(() => setStage('ask'), 3000);
